@@ -6,7 +6,6 @@ function evaluateExpression(expr) {
   let safe = sanitize(expr);
 
   // استبدال التربيع: ^2 → **2
-  // يدعم الأرقام أو التعبيرات بين أقواس
   safe = safe.replace(/(\([^)]+\)|\d+(\.\d+)?)\^2/g, '($1**2)');
 
   // الجذر √(x)
