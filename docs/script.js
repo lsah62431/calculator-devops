@@ -3,12 +3,14 @@
 // دالة تنظيف التعبير من أي رموز غير مسموح بها
 function sanitize(expr) {
   // أضفنا رمز الجذر √ إلى قائمة الرموز المسموح بها
-  return String(expr).replace(/[^0-9+\-*/().√ ]/g, '');
+  return String(expr).replace(/[^0-9+\-*/().√^ ]/g, '');
 }
 
 // دالة تقييم التعبير
 function evaluateExpression(expr) {
   let safe = sanitize(expr);
+
+  safe = safe.replace(/(\([^)]+\)|\d+(\.\d+)?)\^2/g, '($1**2)');
 
   // استبدال √(x) بـ Math.sqrt(x)
   safe = safe.replace(/√\s*\(/g, 'Math.sqrt(');
