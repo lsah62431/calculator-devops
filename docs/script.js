@@ -1,44 +1,42 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>آلة حاسبة</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; }
-    #display { width: 240px; height: 40px; font-size: 18px; text-align: right; margin-bottom: 10px; }
-    button { width: 50px; height: 50px; font-size: 18px; margin: 3px; }
-    .red { background: #d33; color: #fff; }
-  </style>
-</head>
-<body>
-  <h1>آلة حاسبة</h1>
-  <input type="text" id="display" readonly />
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f5f5f5;
+}
 
-  <div>
-    <button class="red" onclick="clearDisplay()">C</button>
-    <button onclick="append('+')">+</button>
-    <button onclick="append('-')">-</button>
-    <button onclick="append('*')">*</button>
-    <button onclick="append('/')">/</button>
-    <button onclick="append('√')">√</button>
-    <button onclick="append('^2')">x²</button>
-  </div>
+h1 {
+  margin-top: 20px;
+}
 
-  <div>
-    <button onclick="append('7')">7</button>
-    <button onclick="append('8')">8</button>
-    <button onclick="append('9')">9</button>
-    <button onclick="append('4')">4</button>
-    <button onclick="append('5')">5</button>
-    <button onclick="append('6')">6</button>
-    <button onclick="append('1')">1</button>
-    <button onclick="append('2')">2</button>
-    <button onclick="append('3')">3</button>
-    <button onclick="append('0')">0</button>
-    <button onclick="calculate()">=</button>
-  </div>
+#display {
+  width: 220px;
+  height: 40px;
+  font-size: 20px;
+  text-align: right;
+  margin-bottom: 10px;
+  padding: 5px;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 55px);
+  grid-gap: 5px;
+  justify-content: center;
+}
+
+button {
+  height: 50px;
+  font-size: 18px;
+  background-color: #e0e0e0;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d5d5d5;
+}
+
+button.red {
+  background-color: red;
+  color: white;
+}
