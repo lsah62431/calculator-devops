@@ -1,14 +1,20 @@
 // script.js
 
+// دالة تنظيف التعبير من أي رموز غير مسموح بها
 function sanitize(expr) {
+  // أضفنا رمز الجذر √ إلى قائمة الرموز المسموح بها
   return String(expr).replace(/[^0-9+\-*/().√ ]/g, '');
 }
 
+// دالة تقييم التعبير
 function evaluateExpression(expr) {
   let safe = sanitize(expr);
 
   // استبدال √(x) بـ Math.sqrt(x)
-  safe = safe.replace(/√\(/g, 'Math.sqrt(');
+  safe = safe.replace(/√\s*\(/g, 'Math.sqrt(');
+
+  // استبدال √x (بدون أقواس) بـ Math.sqrt(x)
+  safe = safe.replace(/√(\d+(\.\d+)?)/g, 'Math.sqrt($1)');
 
   if (safe.trim() === '') return '';
   try {
@@ -16,6 +22,7 @@ function evaluateExpression(expr) {
     if (!isFinite(result)) {
       return 'Error';
     }
+    // تقريب النتيجة لتفادي مشاكل الكسور العشرية
     const rounded = Math.round((result + Number.EPSILON) * 1e12) / 1e12;
     return rounded.toString();
   } catch (e) {
@@ -23,6 +30,7 @@ function evaluateExpression(expr) {
   }
 }
 
+// دوال التحكم في واجهة الآلة الحاسبة
 function getDisplay() {
   return document.getElementById('display');
 }
@@ -44,12 +52,14 @@ function calculate() {
   display.value = evaluateExpression(display.value);
 }
 
+// ربط الدوال بالنافذة لاستخدامها في HTML
 if (typeof window !== 'undefined') {
   window.clearDisplay = clearDisplay;
   window.append = append;
   window.calculate = calculate;
 }
 
+// تصدير الدوال للاختبارات
 if (typeof module !== 'undefined') {
   module.exports = {
     sanitize,
