@@ -1,38 +1,76 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>آلة حاسبة</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; }
-    #display { width: 240px; height: 40px; font-size: 18px; text-align: right; margin-bottom: 10px; }
-    button { width: 50px; height: 50px; font-size: 18px; margin: 3px; }
-    .red { background: #d33; color: #fff; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222;
+      color: white;
+      text-align: center;
+    }
+    #display {
+      width: 90%;
+      height: 50px;
+      font-size: 24px;
+      margin: 10px 0;
+      text-align: right;
+      background: #000;
+      color: #0f0;
+      border: none;
+      padding: 5px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      max-width: 300px;
+      margin: auto;
+    }
+    button {
+      height: 50px;
+      font-size: 20px;
+      background: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button.red {
+      background: red;
+    }
+    button:hover {
+      background: #666;
+    }
   </style>
 </head>
 <body>
-  <h1>آلة حاسبة</h1>
-  <input type="text" id="display" readonly />
 
-  <div>
+  <h1>آلة حاسبة</h1>
+  <input type="text" id="display" readonly>
+
+  <div class="buttons">
     <button class="red" onclick="clearDisplay()">C</button>
     <button onclick="append('+')">+</button>
     <button onclick="append('-')">-</button>
     <button onclick="append('*')">*</button>
+
     <button onclick="append('/')">/</button>
     <button onclick="append('√')">√</button>
     <button onclick="append('^2')">x²</button>
-  </div>
+    <button onclick="append('(')">(</button>
 
-  <div>
+    <button onclick="append(')')">)</button>
     <button onclick="append('7')">7</button>
     <button onclick="append('8')">8</button>
     <button onclick="append('9')">9</button>
+
     <button onclick="append('4')">4</button>
     <button onclick="append('5')">5</button>
     <button onclick="append('6')">6</button>
     <button onclick="append('1')">1</button>
+
     <button onclick="append('2')">2</button>
     <button onclick="append('3')">3</button>
     <button onclick="append('0')">0</button>
