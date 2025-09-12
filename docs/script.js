@@ -8,8 +8,14 @@ function sanitize(expr) {
 
 // دالة تقييم التعبير
 function evaluateExpression(expr) {
-  let safe = sanitize(expr);
 
+  
+  let safe = sanitize(expr);
+  // استبدال ^2 بـ **2 (مشغل الأس في JavaScript)
+  safe = safe.replace(/(\d+)\^2/g, '($1**2)');
+
+
+  safe = safe.replace(/(\d+)\^2/g, '($1**2)');
   // استبدال √(x) بـ Math.sqrt(x)
   safe = safe.replace(/√\s*\(/g, 'Math.sqrt(');
 
