@@ -1,62 +1,38 @@
-// tests/calculator.dom.test.js
-/**
- * @jest-environment jsdom
- */
-const fs = require('fs');
-const path = require('path');
+const { sanitize, evaluateExpression } = require('../docs/script.js');
 
-describe('Calculator DOM integration', () => {
-  let documentRef;
-  let exported;
+describe('sanitize', () => {
+  test('removes invalid characters', () => {
+    expect(sanitize('1+2a$%3')).toBe('1+23');
+  });
+});
 
-  beforeAll(() => {
-    const html = fs.readFileSync(path.join(__dirname, '../docs/index.html'), 'utf8');
-    documentRef = document;
-    documentRef.body.innerHTML = html.match(/<body[\s\S]*<\/body>/i)[0];
-    // حمّل السكربت بعد إعداد DOM
-    exported = require('../docs/script.js'); // عدّل المسار إذا لزم
+describe('evaluateExpression', () => {
+  test('basic operations', () => {
+    expect(evaluateExpression('1+2')).toBe('3');
+    expect(evaluateExpression('7-5')).toBe('2');
+    expect(evaluateExpression('3*4')).toBe('12');
+    expect(evaluateExpression('12/3')).toBe('4');
   });
 
-  test('display exists', () => {
-    const display = document.getElementById('display');
-    expect(display).not.toBeNull();
-    expect(display.disabled).toBe(true);
+  test('parentheses and precedence', () => {
+    expect(evaluateExpression('(2+3)*4')).toBe('20');
+    expect(evaluateExpression('2+3*4')).toBe('14');
   });
 
-  test('append adds characters to display', () => {
-    const display = document.getElementById('display');
-    exported.clearDisplay();
-    exported.append('1');
-    exported.append('+');
-    exported.append('2');
-    expect(display.value).toBe('1+2');
+  test('floating point rounding', () => {
+    expect(evaluateExpression('0.1+0.2')).toBe('0.3');
   });
 
-  test('calculate updates display with result', () => {
-    const display = document.getElementById('display');
-    exported.clearDisplay();
-    exported.append('3');
-    exported.append('*');
-    exported.append('4');
-    exported.calculate();
-    expect(display.value).toBe('12');
+  test('division by zero', () => {
+    expect(evaluateExpression('1/0')).toBe('Error');
   });
 
-  test('clearDisplay empties the display', () => {
-    const display = document.getElementById('display');
-    display.value = '123';
-    exported.clearDisplay();
-    expect(display.value).toBe('');
+  test('invalid expression', () => {
+    expect(evaluateExpression('1++2')).toBe('Error');
   });
 
-  test('invalid expression shows Error', () => {
-    const display = document.getElementById('display');
-    exported.clearDisplay();
-    exported.append('1');
-    exported.append('+');
-    exported.append('+');
-    exported.append('2');
-    exported.calculate();
-    expect(display.value).toBe('Error');
+  test('square root', () => {
+    expect(evaluateExpression('√(9)')).toBe('3');
+    expect(evaluateExpression('√(2)')).toBe(Math.sqrt(2).toString());
   });
 });
