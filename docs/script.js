@@ -1,23 +1,21 @@
 // script.js
 
-// دالة مساعدة: تنظيف التعبير لمنع أي رموز غير متوقعة
 function sanitize(expr) {
-  return String(expr).replace(/[^0-9+\-*/(). ]/g, '');
+  return String(expr).replace(/[^0-9+\-*/().√ ]/g, '');
 }
 
-// منطق الحساب كدالة نقية يمكن اختبارها
 function evaluateExpression(expr) {
-  const safe = sanitize(expr);
+  let safe = sanitize(expr);
+
+  // استبدال √(x) بـ Math.sqrt(x)
+  safe = safe.replace(/√\(/g, 'Math.sqrt(');
+
   if (safe.trim() === '') return '';
   try {
-    // ملاحظة: نستخدم Function بدل eval مع تنقية الإدخال
-    // هذا يكفي لآلة حاسبة بسيطة (بدون دوال متقدمة)
-    // معالجة القسمة على صفر تُعيد Infinity من JS — سنحوّلها إلى رسالة ودية
     const result = Function(`"use strict"; return (${safe})`)();
     if (!isFinite(result)) {
       return 'Error';
     }
-    // تقليل مشاكل الكسور العشرية
     const rounded = Math.round((result + Number.EPSILON) * 1e12) / 1e12;
     return rounded.toString();
   } catch (e) {
@@ -25,7 +23,6 @@ function evaluateExpression(expr) {
   }
 }
 
-// الدوال المرتبطة بالواجهة
 function getDisplay() {
   return document.getElementById('display');
 }
@@ -47,7 +44,6 @@ function calculate() {
   display.value = evaluateExpression(display.value);
 }
 
-// تعريض الدوال للاختبارات وللاستخدام في المتصفح
 if (typeof window !== 'undefined') {
   window.clearDisplay = clearDisplay;
   window.append = append;
