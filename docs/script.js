@@ -1,14 +1,13 @@
-// دالة تنظيف الإدخال من أي رموز غير مسموح بها
 function sanitize(expr) {
   return String(expr).replace(/[^0-9+\-*/().√^ ]/g, '');
 }
 
-// دالة تقييم التعبير
 function evaluateExpression(expr) {
   let safe = sanitize(expr);
 
-  // التربيع: ^2 → **2
-  safe = safe.replace(/(\d+)\^2/g, '($1**2)');
+  // استبدال التربيع: ^2 → **2
+  // يدعم الأرقام أو التعبيرات بين أقواس
+  safe = safe.replace(/(\([^)]+\)|\d+(\.\d+)?)\^2/g, '($1**2)');
 
   // الجذر √(x)
   safe = safe.replace(/√\s*\((\d+(\.\d+)?)\)/g, 'Math.sqrt($1)');
@@ -26,17 +25,14 @@ function evaluateExpression(expr) {
   }
 }
 
-// دالة إضافة نص إلى الشاشة
 function append(value) {
   document.getElementById('display').value += value;
 }
 
-// دالة مسح الشاشة
 function clearDisplay() {
   document.getElementById('display').value = '';
 }
 
-// دالة حساب النتيجة
 function calculate() {
   const expr = document.getElementById('display').value;
   document.getElementById('display').value = evaluateExpression(expr);
