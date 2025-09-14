@@ -6,7 +6,8 @@
     "start": "npx http-server public -p 3000 -c-1",
     "lint": "eslint public/*.js",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage --runInBand"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
