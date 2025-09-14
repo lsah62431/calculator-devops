@@ -18,12 +18,12 @@ describe('sanitize()', () => {
 
 describe('evaluateExpression()', () => {
   test('يحسب العمليات الأساسية', () => {
-    expect(evaluateExpression('2+3')).toBe('5');
-    expect(evaluateExpression('10-4')).toBe('6');
-    expect(evaluateExpression('3*4')).toBe('12');
-    expect(evaluateExpression('12/3')).toBe('4');
-    expect(evaluateExpression('√9')).toBe('3');
-    expect(evaluateExpression('5^2')).toBe('25');
+    expect(evaluateExpression('2+3')).toBe(5);
+    expect(evaluateExpression('10-4')).toBe(6);
+    expect(evaluateExpression('3*4')).toBe(12);
+    expect(evaluateExpression('12/3')).toBe(4);
+    expect(evaluateExpression('√9')).toBe(3);
+    expect(evaluateExpression('5^2')).toBe(25);
   });
 
   test('يرجع "Error" عند تعبير غير صالح', () => {
