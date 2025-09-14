@@ -8,7 +8,7 @@ const {
   append,
   clearDisplay,
   calculate,
-} = require('../public/script');
+} = require('../docs/script');
 
 describe('sanitize()', () => {
   test('يحذف الرموز غير المسموح بها', () => {
