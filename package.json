@@ -19,7 +19,7 @@
     "testEnvironment": "jsdom",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/script.js"
+      "docs/script.js"
     ],
     "coverageThreshold": {
       "global": {
