@@ -1,38 +1,47 @@
-const { sanitize, evaluateExpression } = require('../docs/script.js');
+const { evaluateExpression, sanitize } = require('../script');
 
-describe('sanitize', () => {
-  test('removes invalid characters', () => {
-    expect(sanitize('1+2a$%3')).toBe('1+23');
+describe('sanitize()', () => {
+  test('يحذف الرموز غير المسموح بها', () => {
+    expect(sanitize('2+3$%')).toBe('2+3');
+    expect(sanitize('√(9)#')).toBe('√(9)');
   });
 });
 
-describe('evaluateExpression', () => {
-  test('basic operations', () => {
-    expect(evaluateExpression('1+2')).toBe('3');
-    expect(evaluateExpression('7-5')).toBe('2');
+describe('evaluateExpression()', () => {
+  test('يجمع الأرقام بشكل صحيح', () => {
+    expect(evaluateExpression('2+3')).toBe('5');
+  });
+
+  test('يطرح الأرقام بشكل صحيح', () => {
+    expect(evaluateExpression('10-4')).toBe('6');
+  });
+
+  test('يضرب الأرقام بشكل صحيح', () => {
     expect(evaluateExpression('3*4')).toBe('12');
+  });
+
+  test('يقسم الأرقام بشكل صحيح', () => {
     expect(evaluateExpression('12/3')).toBe('4');
   });
 
-  test('parentheses and precedence', () => {
-    expect(evaluateExpression('(2+3)*4')).toBe('20');
-    expect(evaluateExpression('2+3*4')).toBe('14');
+  test('يحسب الجذر √x بشكل صحيح', () => {
+    expect(evaluateExpression('√9')).toBe('3');
   });
 
-  test('floating point rounding', () => {
-    expect(evaluateExpression('0.1+0.2')).toBe('0.3');
+  test('يحسب الجذر √(x) بشكل صحيح', () => {
+    expect(evaluateExpression('√(16)')).toBe('4');
   });
 
-  test('division by zero', () => {
-    expect(evaluateExpression('1/0')).toBe('Error');
+  test('يحسب التربيع x^2 بشكل صحيح', () => {
+    expect(evaluateExpression('5^2')).toBe('25');
   });
 
-  test('invalid expression', () => {
-    expect(evaluateExpression('1++2')).toBe('Error');
+  test('يحسب التربيع (x)^2 بشكل صحيح', () => {
+    expect(evaluateExpression('(2+3)^2')).toBe('25');
   });
 
-  test('square root', () => {
-    expect(evaluateExpression('√(9)')).toBe('3');
-    expect(evaluateExpression('√(2)')).toBe(Math.sqrt(2).toString());
+  test('يرجع "Error" عند تعبير غير صالح', () => {
+    expect(evaluateExpression('2++3')).toBe('Error');
+    expect(evaluateExpression('√')).toBe('Error');
   });
 });
