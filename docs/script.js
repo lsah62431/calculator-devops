@@ -25,14 +25,27 @@ function evaluateExpression(expr) {
 }
 
 function append(value) {
-  document.getElementById('display').value += value;
+  const display = document.getElementById('display');
+  if (display) display.value += value;
 }
 
 function clearDisplay() {
-  document.getElementById('display').value = '';
+  const display = document.getElementById('display');
+  if (display) display.value = '';
 }
 
 function calculate() {
-  const expr = document.getElementById('display').value;
-  document.getElementById('display').value = evaluateExpression(expr);
+  const display = document.getElementById('display');
+  if (display) display.value = evaluateExpression(display.value);
+}
+
+// تصدير الدوال للاختبارات
+if (typeof module !== 'undefined') {
+  module.exports = {
+    sanitize,
+    evaluateExpression,
+    append,
+    clearDisplay,
+    calculate,
+  };
 }
