@@ -1,4 +1,4 @@
-const { evaluateExpression, sanitize } = require('../script');
+const { evaluateExpression, sanitize } = require('../docs/script');
 
 describe('sanitize()', () => {
   test('يحذف الرموز غير المسموح بها', () => {
