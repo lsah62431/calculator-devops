@@ -53,5 +53,6 @@ if (typeof module !== 'undefined') {
     append,
     clearDisplay,
     calculate,
+    backspace,
   };
 }
