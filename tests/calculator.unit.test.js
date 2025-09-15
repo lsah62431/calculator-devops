@@ -3,9 +3,12 @@
  */
 
 const {
-  evaluateExpression,
   sanitize,
-  backspace // ✅ تم إضافته هنا
+  evaluateExpression,
+  append,
+  clearDisplay,
+  calculate,
+  backspace,
 } = require('../docs/script');
 
 describe('sanitize()', () => {
@@ -54,20 +57,37 @@ describe('evaluateExpression()', () => {
   });
 });
 
-describe('backspace()', () => {
+describe('DOM functions', () => {
   beforeEach(() => {
     document.body.innerHTML = `<input type="text" id="display" value="">`;
   });
 
-  test('يحذف آخر رمز من الشاشة', () => {
+  test('backspace() يحذف آخر رمز من الشاشة', () => {
     document.getElementById('display').value = '5678';
     backspace();
     expect(document.getElementById('display').value).toBe('567');
   });
 
-  test('لا يسبب خطأ عند كون الشاشة فارغة', () => {
+  test('backspace() لا يسبب خطأ عند كون الشاشة فارغة', () => {
     document.getElementById('display').value = '';
     backspace();
     expect(document.getElementById('display').value).toBe('');
+  });
+
+  test('append() يضيف قيمة إلى الشاشة', () => {
+    append('5');
+    expect(document.getElementById('display').value).toBe('5');
+  });
+
+  test('clearDisplay() يمسح الشاشة', () => {
+    document.getElementById('display').value = '123';
+    clearDisplay();
+    expect(document.getElementById('display').value).toBe('');
+  });
+
+  test('calculate() يحسب التعبير ويعرض النتيجة', () => {
+    document.getElementById('display').value = '2+3';
+    calculate();
+    expect(document.getElementById('display').value).toBe('5');
   });
 });
