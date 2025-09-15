@@ -45,3 +45,22 @@ describe('evaluateExpression()', () => {
     expect(evaluateExpression('√')).toBe('Error');
   });
 });
+
+describe('backspace()', () => {
+  beforeEach(() => {
+    document.body.innerHTML = `<input type="text" id="display" value="">`;
+  });
+
+  test('يحذف آخر رمز من الشاشة', () => {
+    document.getElementById('display').value = '5678';
+    backspace();
+    expect(document.getElementById('display').value).toBe('567');
+  });
+
+  test('لا يسبب خطأ عند كون الشاشة فارغة', () => {
+    document.getElementById('display').value = '';
+    backspace();
+    expect(document.getElementById('display').value).toBe('');
+  });
+});
+
