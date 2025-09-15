@@ -34,6 +34,12 @@ function clearDisplay() {
   if (display) display.value = '';
 }
 
+
+function backspace() {
+    const display = document.getElementById('display');
+    if (display) display.value = display.value.slice(0, -1);
+}
+
 function calculate() {
   const display = document.getElementById('display');
   if (display) display.value = evaluateExpression(display.value);
@@ -47,5 +53,6 @@ if (typeof module !== 'undefined') {
     append,
     clearDisplay,
     calculate,
+    backspace,
   };
 }
