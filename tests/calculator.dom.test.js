@@ -8,7 +8,7 @@ const {
   append,
   clearDisplay,
   calculate,
-  backspace // ✅ تم إضافته هنا
+  backspace, // ✅ تم إضافته هنا
 } = require('../docs/script');
 
 describe('sanitize()', () => {
