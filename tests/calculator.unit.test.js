@@ -8,6 +8,7 @@ const {
   append,
   clearDisplay,
   calculate,
+  backspace,
 } = require('../docs/script');
 
 describe('sanitize()', () => {
