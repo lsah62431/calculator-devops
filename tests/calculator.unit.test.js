@@ -38,6 +38,19 @@ describe('DOM functions', () => {
     document.body.innerHTML = `<input type="text" id="display" value="">`;
   });
 
+    test('backspace() يحذف آخر رمز من الشاشة', () => {
+    document.getElementById('display').value = '1234';
+    backspace();
+    expect(document.getElementById('display').value).toBe('123');
+  });
+
+  test('backspace() لا يسبب خطأ عند كون الشاشة فارغة', () => {
+    document.getElementById('display').value = '';
+    backspace();
+    expect(document.getElementById('display').value).toBe('');
+  });
+
+
   test('append() يضيف قيمة إلى الشاشة', () => {
     append('5');
     expect(document.getElementById('display').value).toBe('5');
