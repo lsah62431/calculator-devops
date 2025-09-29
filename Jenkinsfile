@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "Node18"   // ← الاسم اللي اخترته في Global Tool Configuration
+    }
+
     stages {
         stage('Checkout') {
             steps {
