@@ -20,7 +20,7 @@ spec:
         app: calculator
     spec:
       containers:
-      - image: 
+      - image: claculator:v1
         imagePullPolicy: Always
         name: calculator
         ports:
